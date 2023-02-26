@@ -1,4 +1,4 @@
-from sqlalchemy_query_builder import build_query
+from src import build_query
 
 
 def test_filters_1(session, User):
