@@ -11,7 +11,7 @@ def Base():
 
 @fixture(scope="session")
 def engine():
-    return create_engine("mysql+pymysql://root:1234@127.0.0.1/teste", echo=True)
+    return create_engine("mysql+pymysql://root:1234@127.0.0.1/teste", echo=False)
 
 
 @fixture(scope="session")
@@ -21,9 +21,8 @@ def User(Base):
 
         id = Column(Integer, primary_key=True)
         name = Column(String(50))
-        email = Column(String(50))
         age = Column(Integer)
-        adicional = Column(JSON)
+        meta = Column(JSON)
 
     return User
 
@@ -37,21 +36,18 @@ def session(Base, engine, User):
     session = Session()
     user = User(
         name="Joao",
-        email="a@gmail.com",
         age=3,
-        adicional={"comida": {"favorita": "arroz", "custo": 10}},
+        meta={"food": {"loved": "rice", "cost": 10}},
     )
     user2 = User(
         name="Maria",
-        email="b@gmail.com",
         age=6,
-        adicional={"comida": {"favorita": "brocolis", "custo": 30}},
+        meta={"food": {"loved": "brocolis", "cost": 30}},
     )
     user3 = User(
         name="Bento",
-        email="c@gmail.com",
         age=30,
-        adicional={"comida": {"favorita": "arroz", "custo": 10}},
+        meta={"food": {"loved": "rice", "cost": 10}},
     )
     session.add_all([user, user2, user3])
     session.commit()

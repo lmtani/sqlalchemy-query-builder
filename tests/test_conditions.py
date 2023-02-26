@@ -3,7 +3,7 @@ from sqlalchemy_query_builder import build_query
 
 def test_filters_1(session, User):
     filters = [
-        {"field": "adicional.comida.favorita", "operator": "eq", "value": "arroz"},
+        {"field": "meta.food.loved", "operator": "eq", "value": "rice"},
         {"field": "age", "operator": "gt", "value": 10},
     ]
 
@@ -15,7 +15,7 @@ def test_filters_1(session, User):
 
 def test_filters_2(session, User):
     filters = [
-        {"field": "adicional.comida.favorita", "operator": "eq", "value": "brocolis"},
+        {"field": "meta.food.loved", "operator": "eq", "value": "brocolis"},
         {"field": "age", "operator": "lt", "value": 10},
     ]
 
@@ -27,7 +27,7 @@ def test_filters_2(session, User):
 
 def test_filters_3(session, User):
     filters = [
-        {"field": "adicional.comida.favorita", "operator": "eq", "value": "arroz"},
+        {"field": "meta.food.loved", "operator": "eq", "value": "rice"},
         {"field": "age", "operator": "lt", "value": 100},
     ]
 
@@ -40,7 +40,7 @@ def test_filters_3(session, User):
 
 def test_filters_4(session, User):
     filters = [
-        {"field": "adicional.comida.custo", "operator": "lt", "value": 11},
+        {"field": "meta.food.cost", "operator": "lt", "value": 11},
     ]
 
     test_query = build_query(User, filters)
@@ -92,9 +92,9 @@ def test_filters_7(session, User):
             "value": [
                 {"field": "name", "operator": "eq", "value": "Maria"},
                 {
-                    "field": "adicional.comida.favorita",
+                    "field": "meta.food.loved",
                     "operator": "eq",
-                    "value": "arroz",
+                    "value": "rice",
                 },
             ],
         },
@@ -115,9 +115,9 @@ def test_filters_8(session, User):
             "value": [
                 {"field": "name", "operator": "eq", "value": "Maria"},
                 {
-                    "field": "adicional.comida.favorita",
+                    "field": "meta.food.loved",
                     "operator": "eq",
-                    "value": "arroz",
+                    "value": "rice",
                 },
             ],
         },
@@ -140,9 +140,9 @@ def test_filters_9(session, User):
             "value": [
                 {"field": "name", "operator": "eq", "value": "Maria"},
                 {
-                    "field": "adicional.comida.favorita",
+                    "field": "meta.food.loved",
                     "operator": "like",
-                    "value": '"arr%',
+                    "value": '"ric%',
                 },
             ],
         },
@@ -160,7 +160,7 @@ def test_filters_9(session, User):
 def test_filters_10(session, User):
     filters = [
         {
-            "field": "adicional.comida.favorita",
+            "field": "meta.food.loved",
             "operator": "not_in",
             "value": ["brocolis", "couve"],
         },
