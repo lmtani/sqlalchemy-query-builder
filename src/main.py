@@ -1,13 +1,8 @@
-from sqlalchemy import Column, Integer, String
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import select
 from sqlalchemy.sql.expression import and_, or_
-from sqlalchemy.types import JSON
 
 
-def build_query(model, filters_):
+def build_query(model, filters):
     operators_map = {
         "eq": "__eq__",
         "ne": "__ne__",
@@ -21,17 +16,16 @@ def build_query(model, filters_):
         "ilike": "ilike",
     }
     query = select(model)
-    conditions = _prepare_conditions(filters_, model, operators_map)
+    conditions = _prepare_conditions(filters, model, operators_map)
     if conditions:
         query = query.where(and_(*conditions))
     return query
 
 
-def _prepare_conditions(filters_, model, operators_map, conditions=None):
-    if not conditions:
-        conditions = []
+def _prepare_conditions(filters, model, operators_map):
+    conditions = []
 
-    for f in filters_:
+    for f in filters:
         op = f["operator"]
 
         if op == "or":
